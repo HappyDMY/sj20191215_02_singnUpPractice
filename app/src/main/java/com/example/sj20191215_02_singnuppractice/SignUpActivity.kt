@@ -8,8 +8,13 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import com.example.sj20191215_02_singnuppractice.adapters.AlcoholAdapter
+import com.example.sj20191215_02_singnuppractice.datas.Alcohol
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,6 +24,11 @@ class SignUpActivity : BaseActivity() {
     var selectedbirthDay: Calendar? = null
 
 
+    val alcoholList = ArrayList<Alcohol>()
+    var alcoholAdapter: AlcoholAdapter? = null
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -26,7 +36,35 @@ class SignUpActivity : BaseActivity() {
         setValues()
     }
 
+
     override fun setupEvents() {
+
+        jobSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                jobSpinner.selectedItemPosition
+                if (position != 0) {
+                    Toast.makeText(mContext, jobSpinner.selectedItem.toString(), Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
+
+        }
+
+
+
+
+
 //        pwEdt.addTextChangedListener(object : TextWatcher{
 //            override fun afterTextChanged(s: Editable?) {
 //            }
@@ -112,6 +150,25 @@ class SignUpActivity : BaseActivity() {
     }
 
     override fun setValues() {
+        addAlcohols()
+
+        alcoholAdapter = AlcoholAdapter(mContext, R.layout.alcohol_spinner_list_item, alcoholList)
+        alcholSpinner.adapter = alcoholAdapter
+
+    }
+
+    fun addAlcohols() {
+        alcoholList.add(Alcohol("소주", "참이슬"))
+        alcoholList.add(Alcohol("소주", "처음처럼"))
+        alcoholList.add(Alcohol("소주", "C1"))
+        alcoholList.add(Alcohol("소주", "한라산"))
+        alcoholList.add(Alcohol("국내맥주", "카스"))
+        alcoholList.add(Alcohol("국내맥주", "하이트"))
+        alcoholList.add(Alcohol("국내맥주", "클라우드"))
+        alcoholList.add(Alcohol("국내맥주", "오비라거"))
+        alcoholList.add(Alcohol("해외맥주", "하이네켄"))
+        alcoholList.add(Alcohol("해외맥주", "호가든"))
+        alcoholList.add(Alcohol("해외맥주", "칭따오"))
     }
 
 }
