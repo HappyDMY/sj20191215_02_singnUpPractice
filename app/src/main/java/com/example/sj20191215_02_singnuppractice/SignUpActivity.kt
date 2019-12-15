@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
@@ -37,6 +38,10 @@ class SignUpActivity : BaseActivity() {
 //            Log.d("입력된값", it.toString())
 //        }
 
+        birthDayTxt.setOnClickListener {
+            Toast.makeText(mContext,"생일지정 택스트 뷰 클릭", Toast.LENGTH_SHORT).show()
+        }
+
         pwEdt.addTextChangedListener {
             Log.d("입력된값", it.toString())
             val inputStr= it.toString()
@@ -50,6 +55,7 @@ class SignUpActivity : BaseActivity() {
             }else {
                 pwStatusTxt.text ="사용해도 좋은 비밀번호입니다."
                 pwStatusTxt.setTextColor(Color.GREEN)
+                pwStatusTxt.setTextColor(Color.parseColor("#F2B3FA"))
 
             }
         }
