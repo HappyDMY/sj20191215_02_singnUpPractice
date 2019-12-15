@@ -1,9 +1,9 @@
 package com.example.sj20191215_02_singnuppractice
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.graphics.Color
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.text.SimpleDateFormat
+import java.util.*
 
 class SignUpActivity : BaseActivity() {
 
@@ -46,6 +47,11 @@ class SignUpActivity : BaseActivity() {
 
         birthDayTime.setOnClickListener(){
             val timePickerDialog = TimePickerDialog(mContext, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                selectedbirthDay?.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                selectedbirthDay?.set(Calendar.MINUTE, minute)
+                val sdf = SimpleDateFormat("a h:mm")
+                birthDayTime.text = sdf.format(selectedbirthDay?.time)
+
 
             }, 20,5, false)
             timePickerDialog.show()
@@ -73,7 +79,7 @@ class SignUpActivity : BaseActivity() {
 //                    방법2
                     selectedbirthDay?.set(year, month, dayOfMonth)
 
-                    val sdf = SimpleDateFormat("yyyy년 M월 d일")
+                    val sdf = SimpleDateFormat("yyyy년 M월 d일 (E)")
                     birthDayTxt.text = sdf.format(selectedbirthDay?.time)
 
                 },
