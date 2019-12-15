@@ -1,6 +1,8 @@
 package com.example.sj20191215_02_singnuppractice
 
+import android.app.DatePickerDialog
 import android.graphics.Color
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -39,8 +41,15 @@ class SignUpActivity : BaseActivity() {
 //        }
 
         birthDayTxt.setOnClickListener {
-            Toast.makeText(mContext,"생일지정 택스트 뷰 클릭", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(mContext,"생일지정 택스트 뷰 클릭", Toast.LENGTH_SHORT).show()
+            val datePickerDialog = DatePickerDialog(mContext, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+              val selectedDateStr = "${year} / ${month-1} / ${dayOfMonth}"
+                birthDayTxt.text =selectedDateStr
+            },2019,Calendar.DECEMBER,15)
+            datePickerDialog.show()
         }
+
+
 
         pwEdt.addTextChangedListener {
             Log.d("입력된값", it.toString())
